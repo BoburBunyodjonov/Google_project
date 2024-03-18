@@ -1,64 +1,78 @@
-// import React from "react";
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import { useState } from 'react';
 
-// export default function AppModal({setShowModal, showModal}) {
-//   return (
-//     <>
-      
-//       {showModal ? (
-//         <>
-//           <div
-//             className=" absolute right-0 float-end flex overflow-x-hidden overflow-y-auto  inset-0 z-50 outline-none focus:outline-none"
-//           >
-//             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-//               {/*content*/}
-//               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-//                 {/*header*/}
-//                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-//                   <h3 className="text-3xl font-semibold">
-//                     Modal Title
-//                   </h3>
-//                   <button
-//                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-//                     onClick={() => setShowModal(false)}
-//                   >
-//                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-//                       ×
-//                     </span>
-//                   </button>
-//                 </div>
-//                 {/*body*/}
-//                 <div className="relative p-6 flex-auto">
-//                   <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-//                     I always felt like I could do anything. That’s the main
-//                     thing people are controlled by! Thoughts- their perception
-//                     of themselves! They're slowed down by their perception of
-//                     themselves. If you're taught you can’t do anything, you
-//                     won’t do anything. I was taught I could do everything.
-//                   </p>
-//                 </div>
-//                 {/*footer*/}
-//                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-//                   <button
-//                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-//                     type="button"
-//                     onClick={() => setShowModal(false)}
-//                   >
-//                     Close
-//                   </button>
-//                   <button
-//                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-//                     type="button"
-//                     onClick={() => setShowModal(false)}
-//                   >
-//                     Save Changes
-//                   </button>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-//         </>
-//       ) : null}
-//     </>
-//   );
-// }
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '10%',
+  right: '0%',
+  bgcolor: 'black',
+  boxShadow: 24,
+  p: 3,
+};
+
+export default function AppModal({setOpen, open}) {
+
+  
+
+interface AppType {
+  logo: string;
+  name: string;
+}
+
+const appArray: AppType[] = [
+  { 
+    logo: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
+    name: "Search" 
+  },
+  { 
+    logo: 'https://blog.gisplanning.com/hs-fs/hubfs/GoogleMaps-Icon-alone-1.png?width=600&name=GoogleMaps-Icon-alone-1.png',
+    name: "Maps" 
+  },
+  { 
+    logo: 'https://helios-i.mashable.com/imagery/articles/04EZglaVzAW19V6FIiDD3TA/images-2.fit_lim.size_376x.png',
+    name: "Search" 
+  },
+  { 
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Google_News_icon.svg/2503px-Google_News_icon.svg.png',
+    name: "News" 
+  },
+];
+  
+
+
+  
+  const handleClose = () => setOpen(false);
+
+
+  return (
+    <div>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style} className="border  rounded-xl grid gap-3 grid-cols-3">
+          {appArray.map((item, index) => (
+              <div key={index} className='relative hover:bg-white hover:bg-opacity-15 rounded-lg p-5 flex flex-col justify-center items-center '>
+                <img className='w-12' src={item.logo} alt={item.name} />
+                <p className='text-sm text-white'>{item.name}</p>
+              </div>
+            ))}
+          </Box>
+        </Fade>
+      </Modal>
+    </div>
+  );
+}
