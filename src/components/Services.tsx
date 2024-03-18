@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom"
 import ScienceIcon from '@mui/icons-material/Science';
 import AppsIcon from '@mui/icons-material/Apps';
-// import { useState } from "react";
-// import AppModal from "./AppModal";
+import  AppModal  from "./AppModal";
+import React from "react";
 
 const Services = () => {
 
-//   const [showModal, setShowModal] = useState(false);
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
 
     
   return (
@@ -22,7 +23,7 @@ const Services = () => {
                 <li className="cursor-pointer rounded-2xl  text-white p-2 inline">
                     <ScienceIcon/>
                 </li>
-                <li onClick={() => setShowModal(true)} className="cursor-pointer rounded-2xl  text-white p-2 inline">
+                <li onClick={handleOpen}  className="cursor-pointer rounded-2xl  text-white p-2 inline">
                     <AppsIcon/>
 
                 </li>
@@ -36,7 +37,7 @@ const Services = () => {
             </ul>
 
         </div>
-        {/* <AppModal setShowModal={setShowModal} showModal={showModal} /> */}
+        <AppModal setOpen={setOpen} open={open} />
 
     </>
   )
